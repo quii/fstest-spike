@@ -4,7 +4,7 @@ import (
 	"io/fs"
 )
 
-func NewBlog(blogFolder fs.ReadDirFS) ([]Post, error) {
+func New(blogFolder fs.ReadDirFS) ([]Post, error) {
 	dir, err := blogFolder.ReadDir(".")
 	if err != nil {
 		return nil, err

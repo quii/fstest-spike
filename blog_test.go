@@ -12,7 +12,7 @@ func TestBlog(t *testing.T) {
 		dirFS["hello-world.md"] = &fstest.MapFile{Data: []byte("hello, world")}
 		dirFS["hello-world2.md"] = &fstest.MapFile{Data: []byte("hello, world again")}
 
-		posts, err := NewBlog(dirFS)
+		posts, err := New(dirFS)
 
 		if err != nil {
 			t.Fatal(err)
