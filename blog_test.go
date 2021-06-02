@@ -8,11 +8,11 @@ import (
 
 func TestBlog(t *testing.T) {
 	is := is.New(t)
-	
+
 	t.Run("it returns a list of blogs from a directory", func(t *testing.T) {
 
 		dirFS := fstest.MapFS{
-			"hello-world.md": {Data: []byte("hello, world")},
+			"hello-world.md":  {Data: []byte("hello, world")},
 			"hello-world.md2": {Data: []byte("hello, world again")},
 		}
 
