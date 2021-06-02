@@ -18,13 +18,23 @@ func TestBlog(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		if len(posts) != 2 {
-			t.Errorf("expected 2 posts but got %d", len(posts))
-		}
+		t.Run("it gets all the files from the directory", func(t *testing.T) {
+			got := len(posts)
+			want := len(dirFS)
+			if got != want {
+				t.Errorf("expected %d posts but got %d", want, got)
+			}
+		})
 
-		if posts[0].Name != "hello-world.md" {
-			t.Errorf("got %q, want %q", posts[0].Name, "hello-world.md")
-		}
+		t.Run("it parses the first post correctly", func(t *testing.T) {
+			if posts[0].Name != "hello-world.md" {
+				t.Errorf("got %q, want %q", posts[0].Name, "hello-world.md")
+			}
+
+			if posts[0].Body != "hello, world" {
+				t.Errorf("got %q, want %q", posts[0].Body, "hello, world")
+			}
+		})
+
 	})
 }
-
