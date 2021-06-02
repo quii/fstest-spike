@@ -9,8 +9,8 @@ func TestBlog(t *testing.T) {
 	t.Run("it returns a list of blogs from a directory", func(t *testing.T) {
 
 		dirFS := make(fstest.MapFS)
-		dirFS["hello-world.md"] = &fstest.MapFile{Data: []byte("hello, world.md")}
-		dirFS["hello-world2.md"] = &fstest.MapFile{Data: []byte("hello, world again.md")}
+		dirFS["hello-world.md"] = &fstest.MapFile{Data: []byte("hello, world")}
+		dirFS["hello-world2.md"] = &fstest.MapFile{Data: []byte("hello, world again")}
 
 		posts, err := NewBlog(dirFS)
 
