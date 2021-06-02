@@ -5,7 +5,7 @@ import (
 	"io/fs"
 )
 
-func New(blogFolder fs.FS) ([]Post, error) {
+func New(blogFolder fs.FS) (Posts, error) {
 	dir, err := fs.ReadDir(blogFolder, ".")
 	if err != nil {
 		return nil, err

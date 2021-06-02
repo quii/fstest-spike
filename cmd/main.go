@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	blog "github.com/quii/fstest-spike"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -12,5 +12,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(blog)
+	http.ListenAndServe(":8080", blog)
 }
