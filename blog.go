@@ -35,4 +35,3 @@ func newPostFromFile(blogFolder fs.FS, fileName string) (Post, error) {
 	post := newPost(fileName, f)
 	return post, nil
 }
-

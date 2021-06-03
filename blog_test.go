@@ -11,10 +11,12 @@ func TestBlog(t *testing.T) {
 
 	const (
 		firstPostBody = `Tags: go, tdd
+Description: a post on TDD
 ---
 the content
 has newlines`
 		secondPostBody = `Tags: football, sport
+Description: a post on England's squad news
 ---
 football!`
 	)
@@ -39,5 +41,6 @@ football!`
 has newlines`
 		is.Equal(posts[0].Body, expectedContent)
 		is.Equal(posts[0].Tags, []string{"go", "tdd"})
+		is.Equal(posts[0].Description, "a post on TDD")
 	})
 }

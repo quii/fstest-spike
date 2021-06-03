@@ -9,25 +9,38 @@ import (
 )
 
 type Post struct {
-	Name string
-	Body string
-	Tags []string
+	Name        string
+	Body        string
+	Tags        []string
+	Description string
 }
 
 func newPost(fileName string, body io.Reader) Post {
 	scanner := bufio.NewScanner(body)
 
-	scanner.Scan()
-	tagsData := scanner.Text()
+	scanAndRead := func() string {
+		scanner.Scan()
+		return scanner.Text()
+	}
+
+	tags := extractTags(scanAndRead())
+	description := extractDescription(scanAndRead())
 
 	// ignore ----- separator
 	scanner.Scan()
 
+	postBody := readBody(scanner)
+
 	return Post{
-		Name: removeExtension(fileName),
-		Body: readBody(scanner),
-		Tags: extractTags(tagsData),
+		Name:        removeExtension(fileName),
+		Body:        postBody,
+		Tags:        tags,
+		Description: description,
 	}
+}
+
+func extractDescription(data string) string {
+	return strings.TrimPrefix(data, "Description: ")
 }
 
 func readBody(scanner *bufio.Scanner) string {
