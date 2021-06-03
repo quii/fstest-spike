@@ -9,9 +9,19 @@ import (
 func TestBlog(t *testing.T) {
 	is := is.New(t)
 
+	const (
+		firstPostBody = `Tags: go, tdd
+---
+the content
+has newlines`
+		secondPostBody = `Tags: football, sport
+---
+football!`
+	)
+
 	dirFS := fstest.MapFS{
-		"hello-world.md":  {Data: []byte("hello, world")},
-		"hello-world.md2": {Data: []byte("hello, world again")},
+		"hello world.md":  {Data: []byte(firstPostBody)},
+		"hello-world2.md": {Data: []byte(secondPostBody)},
 	}
 
 	posts, err := New(dirFS)
@@ -22,7 +32,11 @@ func TestBlog(t *testing.T) {
 	})
 
 	t.Run("it parses the first post correctly", func(t *testing.T) {
-		is.Equal(posts[0].Name, "hello-world.md")
-		is.Equal(posts[0].Body, "hello, world")
+		t.Run("it removes the extension from the title", func(t *testing.T) {
+			is.Equal(posts[0].Name, "hello world")
+		})
+		expectedContent := `the content
+has newlines`
+		is.Equal(posts[0].Body, expectedContent)
 	})
 }

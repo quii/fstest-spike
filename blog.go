@@ -1,7 +1,6 @@
 package fstest_spike
 
 import (
-	"io"
 	"io/fs"
 )
 
@@ -33,7 +32,7 @@ func newPostFromFile(blogFolder fs.FS, fileName string) (Post, error) {
 		return Post{}, err
 	}
 
-	body, err := io.ReadAll(f)
-	post := Post{fileName, string(body)}
+	post := newPost(fileName, f)
 	return post, nil
 }
+
