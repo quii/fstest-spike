@@ -25,10 +25,7 @@ func newPost(fileName string, body io.Reader) Post {
 
 	tags := extractTags(scanAndRead())
 	description := extractDescription(scanAndRead())
-
-	// ignore ----- separator
-	scanner.Scan()
-
+	scanner.Scan() // ignore ----- separator
 	postBody := readBody(scanner)
 
 	return Post{
