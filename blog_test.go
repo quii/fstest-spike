@@ -1,7 +1,8 @@
-package fstest_spike
+package fstest_spike_test
 
 import (
 	"github.com/matryer/is"
+	blog "github.com/quii/fstest-spike"
 	"testing"
 	"testing/fstest"
 )
@@ -26,7 +27,7 @@ football!`
 		"hello-world2.md": {Data: []byte(secondPostBody)},
 	}
 
-	posts, err := New(dirFS)
+	posts, err := blog.New(dirFS)
 	is.NoErr(err)
 
 	t.Run("it returns a post for each (valid) file", func(t *testing.T) {
