@@ -20,19 +20,22 @@ func newPost(fileName string, body io.Reader) Post {
 	scanner.Scan()
 	tagsData := scanner.Text()
 
-	// ignore -----
+	// ignore ----- separator
 	scanner.Scan()
 
+	return Post{
+		Name: removeExtension(fileName),
+		Body: readBody(scanner),
+		Tags: extractTags(tagsData),
+	}
+}
+
+func readBody(scanner *bufio.Scanner) string {
 	b := bytes.Buffer{}
 	for scanner.Scan() {
 		fmt.Fprintln(&b, scanner.Text())
 	}
-
-	return Post{
-		Name: removeExtension(fileName),
-		Body: strings.TrimSuffix(b.String(), "\n"),
-		Tags: extractTags(tagsData),
-	}
+	return strings.TrimSuffix(b.String(), "\n")
 }
 
 func extractTags(data string) (tags []string) {
