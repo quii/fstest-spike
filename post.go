@@ -11,13 +11,16 @@ import (
 type Post struct {
 	Name string
 	Body string
+	Tags []string
 }
 
 func newPost(fileName string, body io.Reader) Post {
 	scanner := bufio.NewScanner(body)
 
-	// ignore the first few lines, we'll parse these into meta data later
 	scanner.Scan()
+	tagsData := scanner.Text()
+
+	// ignore -----
 	scanner.Scan()
 
 	b := bytes.Buffer{}
@@ -28,7 +31,13 @@ func newPost(fileName string, body io.Reader) Post {
 	return Post{
 		Name: removeExtension(fileName),
 		Body: strings.TrimSuffix(b.String(), "\n"),
+		Tags: extractTags(tagsData),
 	}
+}
+
+func extractTags(data string) (tags []string) {
+	withoutTag := strings.TrimPrefix(data, "Tags: ")
+	return strings.Split(withoutTag, ", ")
 }
 
 func removeExtension(fileName string) string {

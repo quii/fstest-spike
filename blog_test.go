@@ -38,5 +38,6 @@ football!`
 		expectedContent := `the content
 has newlines`
 		is.Equal(posts[0].Body, expectedContent)
+		is.Equal(posts[0].Tags, []string{"go", "tdd"})
 	})
 }
